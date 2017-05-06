@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
+    "run-watch": "nodemon server/server.js",
     "test": "test"
   },
   "engines": {
@@ -14,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.2",
-    "handlebars": "^4.0.8"
+    "handlebars": "^4.0.8",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5"
