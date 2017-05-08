@@ -23,16 +23,14 @@
 
         console.log("new user connected");
 
-        socket.emit('newMessage', {
+        socket.on('createMessage', (message) => {
 
-            from: "Mr.Poopybutthole",
-            text: "'sup, my honky",
-            createdAt: currentTime()
-        });
-
-        socket.on('createMessage', (newMessage) => {
-
-            console.log('createMessage', newMessage);
+            console.log('createMessage', message);
+            io.emit('newMessage', {
+                from: message.from,
+                text: message.text,
+                createdAt: currentTime()
+            });
         });
 
         socket.on('disconnect', () => {

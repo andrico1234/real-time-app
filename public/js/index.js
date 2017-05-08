@@ -1,26 +1,18 @@
-(function() {
-    'use strict';
+'use strict';
 
-    var socket = io();
+var socket = io();
 
-    socket.on('connect', function() {
+socket.on('connect', function() {
 
-        console.log('connected to server');
+    console.log('connected to server');
+});
 
-        socket.emit('createMessage', {
+socket.on('disconnect', function() {
 
-            to: 'hello@fuck.com',
-            text: 'cockcock'
-        });
-    });
+    console.log('disconnected from server');
+});
 
-    socket.on('disconnect', function() {
+socket.on('newMessage', function(message) {
 
-        console.log('disconnected from server');
-    });
-
-    socket.on('newMessage', function(message) {
-
-        console.log('New message', message);
-    });
-})();
+    console.log('New message', message);
+});
