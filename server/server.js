@@ -23,6 +23,20 @@
 
         console.log("new user connected");
 
+        socket.emit('newMessage', {
+
+            from: 'Admin',
+            text: 'Welcome to the chat app',
+            createdAt: currentTime()
+        });
+
+        socket.broadcast.emit('newMessage', {
+
+            from: 'Admin',
+            text: 'New user joined',
+            createdAt: currentTime()
+        });
+
         socket.on('createMessage', (message) => {
 
             console.log('createMessage', message);
