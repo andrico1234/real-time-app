@@ -1,30 +1,49 @@
-"use strict";
+(function() {
+    'use strict';
 
-const express = require('express');
-const http = require('http');
-const path = require('path');
-const socketIO = require('socket.io');
+    const express = require('express');
+    const http = require('http');
+    const path = require('path');
+    const socketIO = require('socket.io');
 
-const publicPath = path.join(__dirname + '/../public');
-const port = process.env.PORT || 3000;
-var app = express();
-var server = http.createServer(app);
-var io = socketIO(server);
+    const publicPath = path.join(__dirname + '/../public');
+    const port = process.env.PORT || 3000;
+    var app = express();
+    var server = http.createServer(app);
+    var io = socketIO(server);
 
-app.use(express.static(publicPath));
+    var currentTime = () => {
 
-io.on('connection', (socket) => {
+        var getCurrentTime = new Date;
+        return getCurrentTime.getHours() + ':' + getCurrentTime.getMinutes();
+    };
+    app.use(express.static(publicPath));
 
-    console.log("new user connected");
+    io.on('connection', (socket) => {
 
-    socket.on('disconnect', () => {
+        console.log("new user connected");
 
-        console.log('disconnected');
+        socket.emit('newMessage', {
+
+            from: "Mr.Poopybutthole",
+            text: "'sup, my honky",
+            createdAt: currentTime()
+        });
+
+        socket.on('createMessage', (newMessage) => {
+
+            console.log('createMessage', newMessage);
+        });
+
+        socket.on('disconnect', () => {
+
+            console.log('disconnected');
+        });
     });
-});
 
-server.listen(port, () => {
+    server.listen(port, () => {
 
-    console.log(`Server is up on port ${port}`);
-});
+        console.log(`Server is up on port ${port}`);
+    });
+})();
 
