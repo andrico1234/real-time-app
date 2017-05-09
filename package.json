@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/server.js",
     "run-watch": "nodemon server/server.js",
-    "test": "test"
+    "test": "jasmine-node server --verbose",
+    "test-watch": "nodemon --exec 'npm test'"
   },
   "engines": {
     "node": "6.9.5"
