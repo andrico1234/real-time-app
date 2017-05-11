@@ -41,14 +41,16 @@
 
     messageForm.addEventListener('submit', function(e) {
 
+        var messageTextbox = document.querySelector('[name=message]');
+
         e.preventDefault();
 
         socket.emit('createMessage', {
             from: 'User',
-            text: document.querySelector('[name=message]').value
+            text: messageTextbox.value
         }, function() {
 
-            console.log('I like sex');
+            messageTextbox.value = '';
         });
     });
 
@@ -58,16 +60,24 @@
             errorCallback('Geolocation not supported by your browser');
         }
 
+        locationButton.setAttribute('disabled', 'disabled');
+        locationButton.innerHTML = 'Sending location...';
+
         navigator.geolocation.getCurrentPosition(function(position) {
+
+            locationButton.removeAttribute('disabled');
+            locationButton.innerHTML = 'Send location';
 
             socket.emit('createLocationMessage', {
 
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             })
-        }, function(error) {
+        }, function() {
 
             errorCallback('Unable to fetch location');
+            locationButton.removeAttribute('disabled');
+            locationButton.innerHTML = 'Send location';
         });
     });
 
