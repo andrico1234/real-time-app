@@ -1,6 +1,8 @@
 'use strict';
 
 var socket = io();
+var messageForm = document.getElementById('message-form');
+var messagesList = document.getElementById('messages');
 
 socket.on('connect', function() {
 
@@ -15,13 +17,20 @@ socket.on('disconnect', function() {
 socket.on('newMessage', function(message) {
 
     console.log('New message', message);
+    var li = document.createElement('li');
+    li.innerHTML = `${message.from}: ${message.text}`;
+    messagesList.append(li);
 });
 
-socket.emit('createMessage', {
+messageForm.addEventListener('submit', function(e) {
 
-    from: 'Froank',
-    text: 'Hi'
-}, function(data) {
+   e.preventDefault();
 
-    console.log(data);
+    socket.emit('createMessage', {
+        from: 'User',
+        text: document.querySelector('[name=message]').value
+    }, function() {
+
+        console.log('I like sex');
+    });
 });
