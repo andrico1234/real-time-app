@@ -1,10 +1,10 @@
 (function() {
     'use strict';
+    const moment = require('moment');
 
     var currentTime = () => {
 
-        var getCurrentTime = new Date;
-        return getCurrentTime.getHours() + ':' + getCurrentTime.getMinutes();
+        return moment().valueOf();
     };
 
     var generateLocationMessage = (from, latitude, longitude) => {

@@ -20,21 +20,22 @@
 
     socket.on('newMessage', function(message) {
 
-        console.log('New message', message);
+        var formattedTime = moment(message.createdAt).format('h:mma');
         var li = document.createElement('li');
-        li.innerHTML = `${message.from}: ${message.text}`;
+        li.innerHTML = `${message.from} ${formattedTime}: ${message.text}`;
         messagesList.append(li);
     });
 
     socket.on('newLocationMessage', function(message) {
 
+        var formattedTime = moment(message.createdAt).format('h:mma');
         var li = document.createElement('li');
         var a = document.createElement('a');
 
         a.innerHTML = 'My current location';
         a.setAttribute('target', '_blank');
         a.setAttribute('href', message.url);
-        li.innerHTML = `${message.from}: `;
+        li.innerHTML = `${message.from} ${formattedTime}: `;
         li.append(a);
         messagesList.append(li);
     });
