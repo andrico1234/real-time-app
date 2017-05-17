@@ -21,22 +21,30 @@
     socket.on('newMessage', function(message) {
 
         var formattedTime = moment(message.createdAt).format('h:mma');
+        var template = document.getElementById('message-template').textContent;
         var li = document.createElement('li');
-        li.innerHTML = `${message.from} ${formattedTime}: ${message.text}`;
+        li.setAttribute('class', 'message');
+        li.innerHTML = Mustache.render(template, {
+
+            from: message.from,
+            text: message.text,
+            createdAt: formattedTime
+        });
         messagesList.append(li);
     });
 
     socket.on('newLocationMessage', function(message) {
 
         var formattedTime = moment(message.createdAt).format('h:mma');
+        var template = document.getElementById('location-message-template').textContent;
         var li = document.createElement('li');
-        var a = document.createElement('a');
+        li.setAttribute('class', 'message');
+        li.innerHTML = Mustache.render(template, {
 
-        a.innerHTML = 'My current location';
-        a.setAttribute('target', '_blank');
-        a.setAttribute('href', message.url);
-        li.innerHTML = `${message.from} ${formattedTime}: `;
-        li.append(a);
+            from: message.from,
+            url: message.url,
+            createdAt: formattedTime
+        });
         messagesList.append(li);
     });
 
