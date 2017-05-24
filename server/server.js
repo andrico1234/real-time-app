@@ -6,6 +6,8 @@
     const path = require('path');
     const socketIO = require('socket.io');
 
+    const {isRealString} = require('./utils/validation');
+
     const {generateMessage, generateLocationMessage} = require('./utils/message');
     const publicPath = path.join(__dirname + '/../public');
     const port = process.env.PORT || 3000;
@@ -19,9 +21,19 @@
 
         console.log("new user connected");
 
-        socket.emit('newMessage', generateMessage('Admin', 'Welcome to the App'));
+        socket.on('join', (params, callback) => {
 
-        socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
+            if (!isRealString(params.name) || !isRealString(params.room)) {
+
+                callback('Name and Room name are required');
+            }
+
+            socket.join(params.room);
+            socket.emit('newMessage', generateMessage('Admin', 'Welcome to the App'));
+            socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
+
+            callback();
+        });
 
         socket.on('createMessage', (message, callback) => {
 
@@ -46,4 +58,3 @@
         console.log(`Server is up on port ${port}`);
     });
 })();
-
