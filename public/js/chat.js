@@ -44,6 +44,21 @@
         });
     });
 
+    socket.on('updateUserList', (users) => {
+
+        var ol = document.createElement('ol');
+
+        users.forEach(function(user) {
+
+            var li = document.createElement('li');
+            li.innerHTML = user;
+            ol.append(li);
+        });
+
+        var userElement = document.getElementById('users');
+        userElement.append(ol);
+    });
+
     socket.on('disconnect', function() {
 
         console.log('disconnected from server');

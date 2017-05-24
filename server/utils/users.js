@@ -15,24 +15,17 @@ class Users {
 
     removeUser(id) {
 
-        let userToRemove = this.users.filter((user) => {
+        let userToRemove = this.getUser(id);
 
-            return user.id === id;
-        });
+        if (userToRemove) {
 
-        let newUsersList = this.users.filter((user) => {
+            this.users = this.users.filter((user) => {
 
-            return user.id !== id;
-        });
-
-        this.users = newUsersList;
-
-        if (userToRemove.length < 1) {
-
-            return 'User was not found';
+                return user.id !== id;
+            });
         }
 
-        return userToRemove[0].name;
+        return userToRemove;
     }
 
     getUser(id) {
@@ -47,7 +40,7 @@ class Users {
             return 'User was not found';
         }
 
-        return userToGet[0].name;
+        return userToGet;
     }
 
     getUserList(room) {

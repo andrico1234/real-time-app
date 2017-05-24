@@ -46,7 +46,11 @@ describe('the users class', () => {
 
         var userList = users.removeUser(1);
 
-        expect(userList).toEqual('Mike');
+        expect(userList).toEqual([{
+            id: 1,
+            name: 'Mike',
+            room: 'Fans of Muse'
+        }]);
         expect(users.users).not.toContain([{name: 'Mike'}]);
     });
 
@@ -61,7 +65,11 @@ describe('the users class', () => {
 
         var userList = users.getUser(2);
 
-        expect(userList).toEqual('Adrian');
+        expect(userList).toEqual([{
+            id: 2,
+            name: 'Adrian',
+            room: 'Fans of Arcane Roots'
+        }]);
     });
 
     it('should not find user', () => {
