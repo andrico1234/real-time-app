@@ -60,7 +60,7 @@
 
             if (user) {
 
-                io.to(user[0].room).emit('updateUserList', (users.getUserList(user.room)));
+                io.to(user[0].room).emit('updateUserList', (users.getUserList(user[0].room)));
                 io.to(user[0].room).emit('newMessage', generateMessage('Admin', `${user[0].name} has left`));
             }
         });

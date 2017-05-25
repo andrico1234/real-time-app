@@ -56,6 +56,7 @@
         });
 
         var userElement = document.getElementById('users');
+        userElement.innerHTML = '';
         userElement.append(ol);
     });
 
