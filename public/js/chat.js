@@ -31,6 +31,8 @@
     socket.on('connect', function() {
 
         var parameters = $.deparam(window.location.search);
+        parameters.room = parameters.room.toLowerCase();
+
         socket.emit('join', parameters, function(err) {
 
             if (err) {
