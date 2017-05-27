@@ -30,6 +30,14 @@
                 return callback('Name and Room name are required');
             }
 
+            users.users.forEach((i) => {
+
+                if (i.name === params.name) {
+
+                    return callback('Name already exists');
+                }
+            }, 1000);
+
             socket.join(params.room);
             users.removeUser(socket.id);
             users.addUser(socket.id, params.name, params.room);

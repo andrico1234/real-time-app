@@ -28,7 +28,7 @@
         }
     };
 
-    socket.on('connect', function() {
+    socket.on('connect', function(users) {
 
         var parameters = $.deparam(window.location.search);
         parameters.room = parameters.room.toLowerCase();
@@ -46,9 +46,10 @@
         });
     });
 
-    socket.on('updateUserList', (users) => {
+    socket.on('updateUserList', function(users) {
 
         var ol = document.createElement('ol');
+        ol.setAttribute('id', 'user-list');
 
         users.forEach(function(user) {
 
@@ -79,6 +80,7 @@
             text: message.text,
             createdAt: formattedTime
         });
+
         messagesList.append(li);
         scrollToBottom();
     });
@@ -95,6 +97,7 @@
             url: message.url,
             createdAt: formattedTime
         });
+
         messagesList.append(li);
         scrollToBottom();
     });
