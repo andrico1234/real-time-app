@@ -32,7 +32,7 @@
 
             users.users.forEach((i) => {
 
-                if (i.name === params.name) {
+                if (i.name === params.name && i.room === params.room) {
 
                     return callback('Name already exists');
                 }
