@@ -36,7 +36,7 @@
 
                     return callback('Name already exists');
                 }
-            }, 1000);
+            });
 
             socket.join(params.room);
             users.removeUser(socket.id);
