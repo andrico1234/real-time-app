@@ -71,12 +71,19 @@ button {
 
   input, select {
     border: 1px solid #e1e1e1;
+  }
+
+  input {
     padding: 10px;
   }
 
   label {
     display: block;
     margin-bottom: 7px;
+  }
+
+  select {
+    height: 45px;
   }
 
   > * {

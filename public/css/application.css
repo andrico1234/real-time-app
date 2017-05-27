@@ -62,11 +62,14 @@ button {
 .form-field {
   margin: 20px 0; }
   .form-field input, .form-field select {
-    border: 1px solid #e1e1e1;
+    border: 1px solid #e1e1e1; }
+  .form-field input {
     padding: 10px; }
   .form-field label {
     display: block;
     margin-bottom: 7px; }
+  .form-field select {
+    height: 45px; }
   .form-field > * {
     width: 100%; }
 
